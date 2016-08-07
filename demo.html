@@ -55,27 +55,45 @@
           arcSharpness: .5,
           animationSpeed: 1000
         },
+        bubblesConfig: {
+          borderWidth: 2,
+          borderOpacity: 1,
+          borderColor: '#FFFFFF',
+          popupOnHover: false,
+          radius: 5,
+          fillOpacity: 0.75,
+          animate: true,
+          highlightOnHover: false,
+          exitDelay: 100,
+        },
       });
 
       var arcs = [];
+      var bubbles = [];
 
       window.setInterval(function () {
+        destination = {
+            latitude: getRandomInRange(-60, 60, 3),
+            longitude: getRandomInRange(-180, 180, 3)
+        }
+
         arcs.push({
           origin: {
             latitude: getRandomInRange(-60, 60, 3),
             longitude: getRandomInRange(-180, 180, 3)
           },
-          destination: {
-            latitude: getRandomInRange(-60, 60, 3),
-            longitude: getRandomInRange(-180, 180, 3)
-          },
-        })
+          destination: destination,
+        });
+
+        bubbles.push(destination);
 
         if (arcs.length > 10) {
           arcs.shift();
+          bubbles.shift();
         }
 
         map.arc(arcs);
+        map.bubbles(bubbles);
       }, 1000);
 
 
